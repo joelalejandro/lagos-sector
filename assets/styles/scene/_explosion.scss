@@ -1,0 +1,17 @@
+explosion {
+  background-image: url('../images/explosions.png');
+  background-repeat: no-repeat;
+  position: absolute;
+
+  &[strength="1"] {
+    animation: explosion-type-1 0.3s steps(6);
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@keyframes explosion-type-1 {
+  100% {
+    background-position: -192px 6px;
+  }
+}

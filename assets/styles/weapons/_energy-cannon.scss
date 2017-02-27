@@ -38,6 +38,10 @@ shot[weapon="energy-cannon"] {
     height: $energy-cannon-level-4-length;
     animation-name: shot-fired-level-4;
   }
+
+  &[fired-by="ai"] {
+    animation-name: shot-fired-at-player;
+  }
 }
 
 @keyframes shot-fired-level-1 {
@@ -54,4 +58,9 @@ shot[weapon="energy-cannon"] {
 
 @keyframes shot-fired-level-4 {
   100% { top: -$energy-cannon-level-4-length; }
+}
+
+@keyframes shot-fired-at-player {
+  0% { top: -50px; }
+  100% { top: 101%; }
 }
