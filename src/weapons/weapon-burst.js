@@ -72,6 +72,8 @@ export default class WeaponBurst extends Entity {
 
     scene.appendChild(shot);
 
+    dom.querySelector('audio-emitter').controllerObject.emit('energy-cannon');
+
     this.__element__ = shot;
 
     this.emit('weaponBurstSpawned');
