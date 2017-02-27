@@ -14,3 +14,5 @@ Assets have been pulled off from [OpenGameArt.org](http://opengameart.org):
 - [Spaceships] (http://opengameart.org/content/spaceships-1) by wuhu
 - [Stars - Parallax backgrounds] (http://opengameart.org/content/stars-parallax-backgrounds) by Bonsaiheldin
 - [Lasers and beams] (http://opengameart.org/content/lasers-and-beams) by Rawdanitsu
+- [Boom Pack 1] (http://opengameart.org/content/boom-pack-1) by dklon
+- [63 Digital sound effects (lasers, phasers, space etc.)] (http://opengameart.org/content/63-digital-sound-effects-lasers-phasers-space-etc) by Kenney
