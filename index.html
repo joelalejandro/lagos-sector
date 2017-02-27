@@ -13,18 +13,29 @@
     import PlayerShip from './src/ship/player-ship';
     import AIShip from './src/ship/ai-ship';
     import AudioEmitter from './src/scene/audio-emitter';
+    import Score from './src/scene/score';
+
     import { DiceThrow } from 'xethya-dice';
 
     const scene = document.querySelector('scene');
 
+    // Registering all sounds
     const audioEmitter = new AudioEmitter();
+    audioEmitter.registerSound({ name: 'background-music', src: 'through-space.ogg', volume: 0.4 });
     audioEmitter.registerSound({ name: 'energy-cannon', src: 'laser4.mp3' });
     audioEmitter.registerSound({ name: 'explosion--small', src: 'boom3.wav', volume: 0.2 });
 
+    audioEmitter.emit('background-music');
+
+    // Score controller
+    const score = new Score();
+
+    // Rendering the player's ship
     const ship = new PlayerShip('The Lagos');
-    ship.shipClass = "civilian-transport";
+    ship.shipClass = "escort";
     ship.renderTo(scene);
 
+    // Spawing fighters
     let fighterCount = 0;
 
     const diceThrow = new DiceThrow(5, scene.getBoundingClientRect().width);
