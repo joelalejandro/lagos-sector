@@ -1,0 +1,7 @@
+// Scene configuratoin
+
+scene[background="stars"] {
+  background-repeat: repeat;
+  background-color: $base-scene-background;
+  background-image: url('../images/spr_stars02.png');
+}

@@ -17,6 +17,12 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "electron-prebuilt-compile": "^1.4.15",
+    "xethya-dice": "xethya/xethya-dice",
+    "xethya-entity": "xethya/xethya-entity",
+    "xethya-range": "xethya/xethya-range",
+    "xethya-combat": "xethya/xethya-combat",
+    "xethya-native-extensions": "xethya/xethya-native-extensions"
   }
 }

@@ -22,6 +22,10 @@ function createWindow () {
     slashes: true
   }))
 
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('xethya-init');
+  });
+
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 
