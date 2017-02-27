@@ -32,7 +32,8 @@ export default class WeaponBurst extends Entity {
         const burstPosition = this.__element__.getBoundingClientRect();
         const nodePosition = node.getBoundingClientRect();
         if (this.boundingBoxesAreOverlapped(burstPosition, nodePosition)) {
-          console.log('COLLIDED with', node);
+          this.explode(burstPosition);
+          this.emit('weaponBurstExploded', { target: node });
           node.controllerObject.emit('damageReceived', { source: this });
           this.stopCollideCheck();
         }
@@ -66,6 +67,7 @@ export default class WeaponBurst extends Entity {
     shot.setAttribute('weapon', owningWeapon.id);
     shot.setAttribute('power-level', owningWeaponPower.value);
     shot.setAttribute('speed', shotSpeed);
+    shot.setAttribute('fired-by', owningShip.__isPlayerShip__ ? 'player' : 'ai');
     shot.controllerObject = this;
 
     shot.style.animationDuration = `${shotSpeed / 1000}s`;
@@ -86,6 +88,23 @@ export default class WeaponBurst extends Entity {
       }
       scene.removeChild(shot);
       this.emit('weaponBurstGone');
+    });
+  }
+
+  explode(position) {
+    const dom = this.__element__.ownerDocument;
+    const scene = dom.querySelector('scene');
+
+    const explosion = dom.createElement('explosion');
+    explosion.setAttribute('strength', 1);
+    explosion.style.left = `${position.left}px`;
+    explosion.style.top = `${position.top}px`;
+
+    scene.appendChild(explosion);
+    this.__element__.remove();
+
+    explosion.addEventListener('animationend', () => {
+      explosion.remove();
     });
   }
 }

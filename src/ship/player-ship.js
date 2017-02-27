@@ -4,6 +4,7 @@ import EnergyCannon from '../weapons/energy-cannon';
 export default class PlayerShip extends Ship {
   constructor(name) {
     super('PLAYER_SHIP', name);
+    this.__isPlayerShip__ = true;
   }
 
   move(event) {
@@ -21,6 +22,6 @@ export default class PlayerShip extends Ship {
   }
 
   mountWeapon() {
-    this.__meta__.weapon = new EnergyCannon(1, this);
+    this.__meta__.weapon = new EnergyCannon(3, this);
   }
 }

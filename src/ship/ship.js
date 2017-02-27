@@ -14,9 +14,10 @@ export default class Ship extends SkilledEntity {
   }
 
   getPosition() {
+    const rect = this.__element__.getBoundingClientRect();
     return {
-      x: (this.__element__.style.left).replace(/px/, ''),
-      y: (this.__element__.style.top).replace(/px/, '')
+      x: rect.left,
+      y: rect.top
     }
   }
 

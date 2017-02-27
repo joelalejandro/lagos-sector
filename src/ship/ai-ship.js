@@ -1,8 +1,12 @@
 import Ship from './ship';
+import EnergyCannon from '../weapons/energy-cannon';
+
+import { CoinFlip } from 'xethya-dice';
 
 export default class AIShip extends Ship {
   constructor(id, name) {
     super('AI_SHIP_${id}', name);
+    this.__isAIShip__ = true;
   }
 
   renderTo(scene) {
@@ -17,5 +21,29 @@ export default class AIShip extends Ship {
       scene.removeChild(this.__element__);
       this.emit('aiShipGone');
     });
+
+    this.__decider__ = new CoinFlip();
+
+    this.mountWeapon();
+
+    this.enterFiringDecisionLoop();
+  }
+
+  enterFiringDecisionLoop() {
+    this.__meta__.firingLoopID = window.requestAnimationFrame(this.decideFiring.bind(this));
+  }
+
+  decideFiring() {
+    const result = this.__decider__.roll();
+    if (result === 1) {
+      this.__meta__.weapon.fire();
+    }
+    setTimeout(() => {
+      this.enterFiringDecisionLoop();
+    }, 2500);
+  }
+
+  mountWeapon() {
+    this.__meta__.weapon = new EnergyCannon(1, this);
   }
 }

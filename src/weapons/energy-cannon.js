@@ -9,6 +9,7 @@ export default class EnergyCannon extends Skill {
 
     this.__meta__.id = 'energy-cannon';
     this.__meta__.canFire = true;
+    this.__meta__.activeShots = 0;
 
     this.addAttribute('power', powerLevel, Range.fromArray([1, 4]));
 
@@ -37,9 +38,15 @@ export default class EnergyCannon extends Skill {
   }
 
   bindEvents(element) {
-    if (this.owner.id === 'PLAYER_SHIP') {
+    if (this.owner.__isPlayerShip__) {
       element.ownerDocument.addEventListener('click', this.fire.bind(this), false);
+    } else {
+      this.updateFiringCondition();
     }
+  }
+
+  updateFiringCondition() {
+    this.canFire = this.__meta__.activeShots < 1 && this.owner.getPosition().y > 200;
   }
 
   fire() {
@@ -48,12 +55,22 @@ export default class EnergyCannon extends Skill {
       console.log('Fired WEAPON_ENERGY_CANNON: ', weaponFiredState.rolls[0], weaponFiredState.throwType);
       const shot = new WeaponBurst(this);
 
-      // TODO: Check firing restrictions.
-      // this.canFire = false;
-      //
-      // shot.once('weaponBurstGone', () => {
-      //   this.canFire = true;
-      // });
+      if (!this.owner.__isPlayerShip__) {
+        this.__meta__.activeShots += 1;
+        this.updateFiringCondition();
+
+        shot.once('weaponBurstGone', () => {
+          this.__meta__.activeShots -= 1;
+          this.updateFiringCondition();
+        });
+      } else {
+        shot.once('weaponBurstExploded', (data) => {
+          if (data.target.controllerObject.__isAIShip__) {
+            const dom = this.__element__.ownerDocument;
+            dom.querySelector('score').controllerObject.increaseBy(weaponFiredState.rolls[0]);
+          }
+        });
+      }
     }
   }
 
@@ -64,6 +81,10 @@ export default class EnergyCannon extends Skill {
 
     weapon.setAttribute('power-level', this.getAttributeById('power').value);
     weapon.controllerObject = this;
+
+    if (this.owner.id !== 'PLAYER_SHIP') {
+      weapon.setAttribute('fired-by', 'ai');
+    }
 
     weaponsArray.appendChild(weapon);
 
