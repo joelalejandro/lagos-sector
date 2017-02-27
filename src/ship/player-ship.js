@@ -1,5 +1,5 @@
 import Ship from './ship';
-import EnergyCannon from './weapons/energy-cannon';
+import EnergyCannon from '../weapons/energy-cannon';
 
 export default class PlayerShip extends Ship {
   constructor(name) {

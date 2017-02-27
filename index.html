@@ -12,9 +12,14 @@
   <script>
     import PlayerShip from './src/ship/player-ship';
     import AIShip from './src/ship/ai-ship';
+    import AudioEmitter from './src/scene/audio-emitter';
     import { DiceThrow } from 'xethya-dice';
 
     const scene = document.querySelector('scene');
+
+    const audioEmitter = new AudioEmitter();
+    audioEmitter.registerSound({ name: 'energy-cannon', src: 'laser4.mp3' });
+    audioEmitter.registerSound({ name: 'explosion--small', src: 'boom3.wav', volume: 0.2 });
 
     const ship = new PlayerShip('The Lagos');
     ship.shipClass = "civilian-transport";

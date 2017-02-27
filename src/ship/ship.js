@@ -57,6 +57,8 @@ export default class Ship extends SkilledEntity {
   }
 
   onDamageReceived(source) {
+    const dom = this.__element__.ownerDocument;
+    dom.querySelector('audio-emitter').controllerObject.emit('explosion--small');
     console.log('HIT! by ', source);
   }
 }
