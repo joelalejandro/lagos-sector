@@ -11,35 +11,67 @@ shot[weapon="energy-cannon"] {
   animation-timing-function: ease-in;
   z-index: 1;
 
-  &[power-level="1"] {
-    background-position: -36px 0;
-    width: 21px;
-    height: $energy-cannon-level-1-length;
-    animation-name: shot-fired-level-1;
+  &[energy="plasma"] {
+    &[power-level="1"] {
+      background-position: -36px 0;
+      width: 21px;
+      height: $energy-cannon-level-1-length;
+      animation-name: shot-fired-level-1;
+    }
+
+    &[power-level="2"] {
+      background-position: -38px -25px;
+      width: 18px;
+      height: $energy-cannon-level-2-length;
+      animation-name: shot-fired-level-2;
+    }
+
+    &[power-level="3"] {
+      background-position: -39px -53px;
+      width: 17px;
+      height: $energy-cannon-level-3-length;
+      animation-name: shot-fired-level-3;
+    }
+
+    &[power-level="4"] {
+      background-position: -117px -220px;
+      width: 41px;
+      height: $energy-cannon-level-4-length;
+      animation-name: shot-fired-level-4;
+    }
   }
 
-  &[power-level="2"] {
-    background-position: -38px -25px;
-    width: 18px;
-    height: $energy-cannon-level-2-length;
-    animation-name: shot-fired-level-2;
+  &[energy="photon"] {
+    &[power-level="1"] {
+      background-position: -35px -114px;
+      width: 21px;
+      height: $energy-cannon-level-1-length;
+      animation-name: shot-fired-level-1;
+    }
+
+    &[power-level="2"] {
+      background-position: -37px -140px;
+      width: 18px;
+      height: $energy-cannon-level-2-length;
+      animation-name: shot-fired-level-2;
+    }
+
+    &[power-level="3"] {
+      background-position: -38px -168px;
+      width: 17px;
+      height: $energy-cannon-level-3-length;
+      animation-name: shot-fired-level-3;
+    }
+
+    &[power-level="4"] {
+      background-position: -203px -300px;
+      width: 62px;
+      height: $energy-cannon-level-4-length + 41px;
+      animation-name: shot-fired-level-4-alt;
+    }
   }
 
-  &[power-level="3"] {
-    background-position: -39px -53px;
-    width: 17px;
-    height: $energy-cannon-level-3-length;
-    animation-name: shot-fired-level-3;
-  }
-
-  &[power-level="4"] {
-    background-position: -117px -220px;
-    width: 41px;
-    height: $energy-cannon-level-4-length;
-    animation-name: shot-fired-level-4;
-  }
-
-  &[fired-by="ai"] {
+  &[fired-by="ai"][energy][power-level] {
     animation-name: shot-fired-at-player;
   }
 }
@@ -58,6 +90,10 @@ shot[weapon="energy-cannon"] {
 
 @keyframes shot-fired-level-4 {
   100% { top: -$energy-cannon-level-4-length; }
+}
+
+@keyframes shot-fired-level-4-alt {
+  100% { top: -$energy-cannon-level-4-length - 41px; }
 }
 
 @keyframes shot-fired-at-player {
