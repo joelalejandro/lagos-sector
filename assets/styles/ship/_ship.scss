@@ -22,6 +22,11 @@ ship[controlled-by="ai"] {
   will-change: bottom;
 }
 
+ship[controlled-by="player"] {
+  // left: 50%;
+  // bottom: 10%;
+}
+
 ship[class="interceptor"] {
   background-position: -6px -4px;
   width: 56px;
