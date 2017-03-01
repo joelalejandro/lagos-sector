@@ -68,6 +68,7 @@ export default class WeaponBurst extends Entity {
     shot.setAttribute('power-level', owningWeaponPower.value);
     shot.setAttribute('speed', shotSpeed);
     shot.setAttribute('fired-by', owningShip.__isPlayerShip__ ? 'player' : 'ai');
+    shot.setAttribute('energy', owningWeapon.__meta__.energyType);
     shot.controllerObject = this;
 
     shot.style.animationDuration = `${shotSpeed / 1000}s`;
