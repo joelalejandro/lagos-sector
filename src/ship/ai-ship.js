@@ -17,6 +17,10 @@ export default class AIShip extends Ship {
 
     this.__element__.setAttribute('controlled-by', 'ai');
 
+    this.__element__.addEventListener('animationstart', () => {
+      setTimeout(() => { this.enterFiringDecisionLoop(); }, 1000);
+    });
+
     this.__element__.addEventListener('animationend', () => {
       scene.removeChild(this.__element__);
       this.emit('aiShipGone');
@@ -25,8 +29,6 @@ export default class AIShip extends Ship {
     this.__decider__ = new CoinFlip();
 
     this.mountWeapon();
-
-    this.enterFiringDecisionLoop();
   }
 
   enterFiringDecisionLoop() {
@@ -38,12 +40,13 @@ export default class AIShip extends Ship {
     if (result === 1) {
       this.__meta__.weapon.fire();
     }
-    setTimeout(() => {
-      this.enterFiringDecisionLoop();
-    }, 2500);
   }
 
   mountWeapon() {
-    this.__meta__.weapon = new EnergyCannon(1, this);
+    this.__meta__.weapon = new EnergyCannon({
+      power: 2,
+      owner: this,
+      energy: 'photon'
+    });
   }
 }
