@@ -6,18 +6,20 @@
     <link rel="stylesheet" href="assets/styles/game.scss">
   </head>
   <body draggable="false">
-    <scene background="stars" />
   </body>
 
   <script>
-    import PlayerShip from './src/ship/player-ship';
-    import AIShip from './src/ship/ai-ship';
+    import Scene from './src/scene/scene';
     import AudioEmitter from './src/scene/audio-emitter';
     import Score from './src/scene/score';
+    import PlayerShip from './src/ship/player-ship';
+    import AIShip from './src/ship/ai-ship';
 
     import { DiceThrow } from 'xethya-dice';
 
-    const scene = document.querySelector('scene');
+    const scene = new Scene({
+      background: 'stars'
+    });
 
     // Registering all sounds
     const audioEmitter = new AudioEmitter();
@@ -31,32 +33,31 @@
     const score = new Score();
 
     // Rendering the player's ship
-    const ship = new PlayerShip('The Lagos');
-    ship.shipClass = "escort";
+    const ship = new PlayerShip({ name: 'The Lagos', shipClass: 'interceptor' });
     ship.renderTo(scene);
 
-    // Spawing fighters
-    let fighterCount = 0;
-
-    const diceThrow = new DiceThrow(5, scene.getBoundingClientRect().width);
-
-    const spawner = () => {
-      if (fighterCount < 5) {
-        const ship = new AIShip('ENEMY_1', 'Fighter');
-        ship.shipClass = "fighter";
-        ship.startingXPos = diceThrow.roll().rolls[fighterCount];
-        ship.startingYPos = -diceThrow.roll().rolls[0];
-        ship.renderTo(scene);
-        fighterCount += 1;
-        ship.on('aiShipGone', () => { fighterCount--; })
-      }
-      callSpawner();
-    };
-
-    const callSpawner = () => {
-      window.requestAnimationFrame(spawner);
-    }
-
-    callSpawner();
+    // // Spawing fighters
+    // let fighterCount = 0;
+    //
+    // const diceThrow = new DiceThrow(5, scene.getBoundingClientRect().width);
+    //
+    // const spawner = () => {
+    //   if (fighterCount < 5) {
+    //     const ship = new AIShip('ENEMY_1', 'Fighter');
+    //     ship.shipClass = "fighter";
+    //     ship.startingXPos = diceThrow.roll().rolls[fighterCount];
+    //     ship.startingYPos = -diceThrow.roll().rolls[0];
+    //     ship.renderTo(scene);
+    //     fighterCount += 1;
+    //     ship.on('aiShipGone', () => { fighterCount--; })
+    //   }
+    //   callSpawner();
+    // };
+    //
+    // const callSpawner = () => {
+    //   window.requestAnimationFrame(spawner);
+    // }
+    //
+    // callSpawner();
   </script>
 </html>
