@@ -1,7 +1,12 @@
-// Scene configuratoin
+// Scene configuration
 
 scene[background="stars"] {
   background-repeat: repeat;
   background-color: $base-scene-background;
   background-image: url('../images/spr_stars02.png');
+  animation: stars-displacement 60s linear infinite;
+}
+
+@keyframes stars-displacement {
+  100% { background-position: 0 -100%; }
 }
