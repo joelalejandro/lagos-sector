@@ -4,17 +4,18 @@ import WeaponBurst from './weapon-burst';
 import { Range } from 'xethya-range';
 
 export default class EnergyCannon extends Skill {
-  constructor(powerLevel, owner) {
-    super('energy-cannon', null, owner);
+  constructor(options) {
+    super('energy-cannon', null, options.owner);
 
     this.__meta__.id = 'energy-cannon';
     this.__meta__.canFire = true;
     this.__meta__.activeShots = 0;
 
-    this.addAttribute('power', powerLevel, Range.fromArray([1, 4]));
+    this.addAttribute('power', options.power, Range.fromArray([1, 4]));
+    this.__meta__.energyType = options.energy;
 
-    this.renderTo(owner.__element__);
-    this.bindEvents(owner.__element__);
+    this.renderTo(options.owner.__element__);
+    this.bindEvents(options.owner.__element__);
   }
 
   get id() {
@@ -39,20 +40,19 @@ export default class EnergyCannon extends Skill {
 
   bindEvents(element) {
     if (this.owner.__isPlayerShip__) {
-      element.ownerDocument.addEventListener('click', this.fire.bind(this), false);
+      element.ownerDocument.addEventListener('mousedown', this.fire.bind(this), false);
     } else {
       this.updateFiringCondition();
     }
   }
 
   updateFiringCondition() {
-    this.canFire = this.__meta__.activeShots < 1 && this.owner.getPosition().y > 200;
+    this.canFire = this.__meta__.activeShots < 1;
   }
 
   fire() {
     if (this.canFire) {
       const weaponFiredState = this.use();
-      console.log('Fired WEAPON_ENERGY_CANNON: ', weaponFiredState.rolls[0], weaponFiredState.throwType);
       const shot = new WeaponBurst(this);
 
       if (!this.owner.__isPlayerShip__) {
@@ -80,6 +80,7 @@ export default class EnergyCannon extends Skill {
     const weapon = dom.createElement('energy-cannon');
 
     weapon.setAttribute('power-level', this.getAttributeById('power').value);
+    weapon.setAttribute('energy', this.__meta__.energyType);
     weapon.controllerObject = this;
 
     if (this.owner.id !== 'PLAYER_SHIP') {
