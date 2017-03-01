@@ -1,6 +1,24 @@
-import { SkilledEntity } from 'xethya-entity';
+import { LivingEntity } from 'xethya-entity';
 
-export default class Ship extends SkilledEntity {
+export default class Ship extends LivingEntity {
+  constructor(options) {
+    const ShipClass = require(`./classes/${options.shipClass}`).default;
+    super(options.id, options.name, new ShipClass());
+  }
+
+  /**
+   * @override
+   */
+  registerAttributes() {
+    this.addAttribute('impulse', 25);
+    this.addAttribute('lateralThrusters', 25);
+
+    this.__meta__.movementEasing = {
+      x: 'lateralThrusters',
+      y: 'impulse'
+    };
+  }
+
   get shipClass() {
     return this.__meta__.shipClass;
   }
@@ -38,16 +56,16 @@ export default class Ship extends SkilledEntity {
   }
 
   renderTo(scene) {
-    const dom = scene.ownerDocument;
+    const dom = scene.__element__.ownerDocument;
     const ship = dom.createElement('ship');
 
-    ship.classList.add(this.shipClass);
+    ship.classList.add(this.race.name);
     ship.appendChild(dom.createElement('weapons'));
     ship.controllerObject = this;
 
     this.__element__ = ship;
 
-    scene.appendChild(ship);
+    scene.__element__.appendChild(ship);
 
     this.refreshShipSizeCache();
     this.bindEvents();
@@ -55,6 +73,20 @@ export default class Ship extends SkilledEntity {
 
   bindEvents() {
     this.on('damageReceived', this.onDamageReceived.bind(this));
+  }
+
+  getMomentumFactor(axis) {
+    return this.getAttributeById(this.__meta__.movementEasing[axis]).getComputedValue() / 100;
+  }
+
+  move(delta, scene) {
+    if (!scene.canPointerMove) return;
+
+    const position = this.getPosition();
+    const easedX = position.x + delta.x * this.getMomentumFactor('x');
+    const easedY = position.y + delta.y * this.getMomentumFactor('y');
+
+    this.__element__.style.transform = `translateX(${easedX}px) translateY(${easedY}px)`;
   }
 
   onDamageReceived(source) {
