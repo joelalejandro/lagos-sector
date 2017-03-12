@@ -4,6 +4,7 @@ export default class Score {
     this.__element__.controllerObject = this;
     this.__meta__ = { score: 0 };
     document.body.appendChild(this.__element__);
+    this.refreshScoreUI();
   }
 
   increaseBy(points) {
