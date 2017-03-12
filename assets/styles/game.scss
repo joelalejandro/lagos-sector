@@ -3,6 +3,7 @@
 @import 'scene/_scene';
 @import 'scene/_stars';
 @import 'scene/_explosion';
-@import 'scene/_score';
-@import 'ship/_ship';
+@import 'ui/ui';
+@import 'ship/ship';
 @import 'weapons/_energy-cannon';
+@import 'shields/shield';

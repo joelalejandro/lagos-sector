@@ -1,2 +1,79 @@
 // Background settings
 $base-scene-background: #000015;
+
+// Ship classes
+$interceptor-height: 56px;
+$fighter-height: 22px;
+$gunship-height: 55px;
+$escort-height: 58px;
+$civilian-transport-height: 45px;
+$cargo-hauler-height: 60px;
+$miner-height: 57px;
+$stealth-height: 59px;
+$defender-height: 56px;
+
+// Energy cannon settings
+$energy-cannon-level-1-length: 20px;
+$energy-cannon-level-2-length: 24px;
+$energy-cannon-level-3-length: 33px;
+$energy-cannon-level-4-length: 70px;
+
+// Shields
+$shield-base-offset-left: 0px;
+$shield-base-offset-top: 0px;
+$shield-reinforcement-offset: 10px;
+
+$shield-base-offset: $shield-base-offset-left $shield-base-offset-top;
+$shield-reinforcement-base-position: $shield-base-offset-left $shield-base-offset-top 0px;
+
+$shield-bow-offset: $shield-base-offset-left (-$shield-reinforcement-offset);
+$shield-port-offset: (-$shield-reinforcement-offset) $shield-base-offset-top;
+$shield-starboard-offset: $shield-reinforcement-offset $shield-base-offset-top;
+$shield-stern-offset: $shield-base-offset-left $shield-reinforcement-offset;
+
+$shield-width: 20px;
+
+$shield-color-percent-lower: #c00;
+$shield-color-percent-middle: #c80;
+$shield-color-percent-upper: #8c0;
+
+$shield-default-width: 200%;
+$shield-default-height: 200%;
+$shield-default-left: -50%;
+$shield-default-top: -50%;
+
+$shield-composition-rounded: 50%;
+
+$shield-default-composition: $shield-composition-rounded;
+
+// Shield gauge
+$shield-gauge-border-width: 3px;
+$shield-gauge-border-color: #fff;
+$shield-gauge-border: $shield-gauge-border-width solid $shield-gauge-border-color;
+$shield-gauge-box-shadow:
+  0px 0px 1px transparent,
+  0px 0px $shield-gauge-border-width #000 inset,
+  0px 0px ($shield-gauge-border-width + 1) #000 inset,
+  0px 0px ($shield-gauge-border-width + 2) #000 inset;
+$shield-gauge-width: 150px;
+$shield-gauge-height: 24px;
+$shield-gauge-margin: $shield-gauge-border-width;
+$shield-gauge-label: 'SHIELDS';
+$shield-gauge-label-low: '#{$shield-gauge-label} LOW';
+$shield-gauge-label-down: '#{$shield-gauge-label} DOWN!';
+$shield-gauge-label-color: $shield-gauge-border-color;
+$shield-gauge-label-font-size: $shield-gauge-height * 0.6;
+$shield-gauge-label-hpadding: $shield-gauge-width * 0.0667;
+$shield-gauge-label-vpadding: $shield-gauge-height * 0.2083;
+$shield-gauge-label-padding: $shield-gauge-label-vpadding $shield-gauge-label-hpadding;
+$shield-gauge-label-text-shadow: 0px 0px 3px #000, 0px 0px 3px #000, 0px 0px 3px #000;
+$shield-gauge-color-danger: #c00;
+$shield-gauge-color-warning: #c90;
+$shield-gauge-color-safe: #0c0;
+$shield-gauge-box-shadow-width: 20px;
+$shield-gauge-box-shadow-danger:
+  0px 0px $shield-gauge-box-shadow-width $shield-gauge-color-danger,
+  $shield-gauge-box-shadow;
+$shield-gauge-box-shadow-warning:
+  0px 0px $shield-gauge-box-shadow-width $shield-gauge-color-warning,
+  $shield-gauge-box-shadow;

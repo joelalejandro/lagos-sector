@@ -1,0 +1,124 @@
+shield {
+  &[ratio="0.7"],
+  &[ratio="0.8"],
+  &[ratio="0.9"],
+  &[ratio="1.0"] {
+    box-shadow: $shield-base-offset
+                $shield-width rgba($shield-color-percent-upper, 0.3);
+
+    &[recharging="true"] {
+      animation: shield-recharging-upper-ratio 2s infinite;
+    }
+
+    &[reinforcing="bow"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                  $shield-bow-offset $shield-width $shield-color-percent-upper;
+
+      &[recharging="true"] {
+        animation: shield-recharging-upper-ratio-bow-reinforced 2s infinite;
+      }
+    }
+
+    &[reinforcing="port"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                  $shield-port-offset $shield-width $shield-color-percent-upper;
+
+      &[recharging="true"] {
+        animation: shield-recharging-upper-ratio-port-reinforced 2s infinite;
+      }
+    }
+
+    &[reinforcing="starboard"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                  $shield-starboard-offset $shield-width $shield-color-percent-upper;
+
+      &[recharging="true"] {
+        animation: shield-recharging-upper-ratio-starboard-reinforced 2s infinite;
+      }
+    }
+
+    &[reinforcing="stern"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                  $shield-stern-offset $shield-width $shield-color-percent-upper;
+
+      &[recharging="true"] {
+        animation: shield-recharging-upper-ratio-stern-reinforced 2s infinite;
+      }
+    }
+  }
+}
+
+@keyframes shield-recharging-upper-ratio {
+  0% {
+    box-shadow: $shield-base-offset
+                $shield-width $shield-color-percent-upper;
+  }
+  50% {
+    box-shadow: $shield-base-offset
+                0px rgba($shield-color-percent-upper, 0.1);
+  }
+  100% {
+    box-shadow: $shield-base-offset
+                $shield-width $shield-color-percent-upper;
+  }
+}
+
+@keyframes shield-recharging-upper-ratio-bow-reinforced {
+  0% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-bow-offset $shield-width $shield-color-percent-upper;
+  }
+  50% {
+    box-shadow: $shield-base-offset
+                0px rgba($shield-color-percent-upper, 0.1);
+  }
+  100% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-bow-offset $shield-width $shield-color-percent-upper;
+  }
+}
+
+@keyframes shield-recharging-upper-ratio-port-reinforced {
+  0% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-port-offset $shield-width $shield-color-percent-upper;
+  }
+  50% {
+    box-shadow: $shield-base-offset
+                0px rgba($shield-color-percent-upper, 0.1);
+  }
+  100% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-port-offset $shield-width $shield-color-percent-upper;
+  }
+}
+
+@keyframes shield-recharging-upper-ratio-starboard-reinforced {
+  0% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-starboard-offset $shield-width $shield-color-percent-upper;
+  }
+  50% {
+    box-shadow: $shield-base-offset
+                0px rgba($shield-color-percent-upper, 0.1);
+  }
+  100% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-starboard-offset $shield-width $shield-color-percent-upper;
+  }
+}
+
+@keyframes shield-recharging-upper-ratio-stern-reinforced {
+  0% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-stern-offset $shield-width $shield-color-percent-upper;
+  }
+  50% {
+    box-shadow: $shield-base-offset
+                0px rgba($shield-color-percent-upper, 0.1);
+  }
+  100% {
+    box-shadow: $shield-reinforcement-base-position $shield-color-percent-upper,
+                $shield-stern-offset $shield-width $shield-color-percent-upper;
+  }
+}

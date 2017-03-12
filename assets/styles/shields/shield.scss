@@ -1,0 +1,16 @@
+shield {
+  position: absolute;
+  width: $shield-default-width;
+  height: $shield-default-height;
+  left: $shield-default-left;
+  top: $shield-default-top;
+  border-radius: $shield-default-composition;
+  box-sizing: border-box;
+  display: block;
+}
+
+@import 'shields/compositions/rounded-composition';
+
+@import 'shields/ratios/lower-ratio';
+@import 'shields/ratios/middle-ratio';
+@import 'shields/ratios/upper-ratio';

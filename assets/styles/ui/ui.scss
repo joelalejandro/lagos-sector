@@ -1,0 +1,6 @@
+@import 'ui/score';
+@import 'ui/shield-gauge';
+
+score, shield-gauge {
+  z-index: 10;
+}

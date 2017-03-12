@@ -1,0 +1,28 @@
+shield {
+  &[ratio="0.1"],
+  &[ratio="0.2"],
+  &[ratio="0.3"] {
+    box-shadow: $shield-base-offset
+                ($shield-width * 0.3) $shield-color-percent-lower;
+
+    &[reinforcing="bow"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-lower,
+                  $shield-bow-offset ($shield-width * 0.3) rgba($shield-color-percent-lower, 0.3);
+    }
+
+    &[reinforcing="port"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-lower,
+                  $shield-port-offset ($shield-width * 0.3) rgba($shield-color-percent-lower, 0.3);
+    }
+
+    &[reinforcing="starboard"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-lower,
+                  $shield-starboard-offset ($shield-width * 0.3) rgba($shield-color-percent-lower, 0.3);
+    }
+
+    &[reinforcing="stern"] {
+      box-shadow: $shield-reinforcement-base-position $shield-color-percent-lower,
+                  $shield-stern-offset ($shield-width * 0.3) rgba($shield-color-percent-lower, 0.3);
+    }
+  }
+}

@@ -1,0 +1,127 @@
+shield-gauge {
+  position: fixed;
+  border: $shield-gauge-border;
+  box-shadow: $shield-gauge-box-shadow;
+  width: $shield-gauge-width;
+  height: $shield-gauge-height;
+  margin: $shield-gauge-margin;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+    to right,
+    transparent, transparent 1%,
+    #c00, #c00 2%,
+    #c00, #c10 10%,
+    #c10, transparent 11%,
+    transparent, transparent 12%,
+    #c20, #c30 12%,
+    #c30, #c40 22%,
+    #c40, transparent 23%,
+    transparent, transparent 24%,
+    #c50, #c60 25%,
+    #c60, #c70 35%,
+    #c80, transparent 35%,
+    transparent, transparent 36%,
+    #c90, #ca0 37%,
+    #ca0, #cb0 47%,
+    #cc0, transparent 47%,
+    transparent, transparent 48%,
+    #bc0, #ac0 49%,
+    #9c0, #8c0 59%,
+    #8c0, transparent 59%,
+    transparent, transparent, 60%,
+    #7c0, #6c0 61%,
+    #6c0, #5c0 71%,
+    #4c0, transparent 71%,
+    transparent, transparent 72%,
+    #3c0, #2c0 73%,
+    #2c0, #1c0 83%,
+    #0c0, #0c0 99%,
+    #0c0, transparent 99%,
+    transparent, transparent 100%
+  );
+
+  &:before {
+    position: absolute;
+    background: repeating-linear-gradient(to right,
+      transparent, transparent 1% /* black stripe */,
+      black 0, black 10%/* blue stripe */
+    );
+    top: 0px;
+    width: 0%;
+    right: 0px;
+    height: $shield-gauge-height;
+    content: ' ';
+  }
+
+  &[damage="100"] {
+    border-color: $shield-gauge-color-danger;
+    animation: shield-gauge-danger 0.25s infinite;
+
+    &:before { background: black; }
+    &:after { content: $shield-gauge-label-down; }
+  }
+
+  @for $index from 75 through 99 {
+    &[damage="#{$index}"] {
+      border-color: $shield-gauge-color-danger;
+      animation: shield-gauge-danger 1s infinite;
+
+      &:after { content: $shield-gauge-label-low; }
+    }
+  }
+
+  @for $index from 50 through 74 {
+    &[damage="#{$index}"] {
+      border-color: $shield-gauge-color-warning;
+      animation: shield-gauge-warning 5s infinite;
+    }
+  }
+
+  @for $index from 1 through 100 {
+    &[damage="#{$index}"]:before {
+      width: percentage($index / 100);
+    }
+  }
+
+  &:after {
+    content: $shield-gauge-label;
+    font-family: '5by7Bold';
+    color: $shield-gauge-label-color;
+    font-size: $shield-gauge-label-font-size;
+    display: block;
+    padding: $shield-gauge-label-padding;
+    transform: scale(1);
+    text-shadow: $shield-gauge-label-text-shadow;
+    letter-spacing: 1px;
+  }
+}
+
+@keyframes shield-gauge-danger {
+  0% {
+    border-color: $shield-gauge-color-danger;
+    box-shadow: $shield-gauge-box-shadow-danger;
+  }
+  50% {
+    border-color: $shield-gauge-border-color;
+    box-shadow: $shield-gauge-box-shadow;
+  }
+  100% {
+    border-color: $shield-gauge-color-danger;
+    box-shadow: $shield-gauge-box-shadow-danger;
+  }
+}
+
+@keyframes shield-gauge-warning {
+  0% {
+    border-color: $shield-gauge-color-warning;
+    box-shadow: $shield-gauge-box-shadow-warning;
+  }
+  50% {
+    border-color: $shield-gauge-border-color;
+    box-shadow: $shield-gauge-box-shadow;
+  }
+  100% {
+    border-color: $shield-gauge-color-warning;
+    box-shadow: $shield-gauge-box-shadow-warning;
+  }
+}
