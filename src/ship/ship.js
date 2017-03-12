@@ -10,8 +10,8 @@ export default class Ship extends LivingEntity {
    * @override
    */
   registerAttributes() {
-    this.addAttribute('impulse', 25);
-    this.addAttribute('lateralThrusters', 25);
+    this.addAttribute('impulse', 10);
+    this.addAttribute('lateralThrusters', 10);
 
     this.__meta__.movementEasing = {
       x: 'lateralThrusters',
@@ -92,6 +92,5 @@ export default class Ship extends LivingEntity {
   onDamageReceived(source) {
     const dom = this.__element__.ownerDocument;
     dom.querySelector('audio-emitter').controllerObject.emit('explosion--small');
-    console.log('HIT! by ', source);
   }
 }
