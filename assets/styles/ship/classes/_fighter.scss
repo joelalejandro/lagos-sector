@@ -1,0 +1,10 @@
+ship[class="fighter"] {
+  background-position: -6px -68px;
+  width: 25px;
+  height: $fighter-height;
+
+  &[controlled-by="ai"] {
+    top: -$fighter-height;
+    animation-duration: 3s;
+  }
+}

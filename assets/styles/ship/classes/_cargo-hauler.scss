@@ -1,0 +1,9 @@
+ship[class="cargo-hauler"] {
+  background-position: -160px -64px;
+  width: 22px;
+  height: $cargo-hauler-height;
+
+  &[controlled-by="ai"] {
+    top: -$cargo-hauler-height;
+  }
+}

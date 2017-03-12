@@ -1,0 +1,27 @@
+ship {
+  position: absolute;
+  background-image: url('../images/shipsall.gif');
+  background-repeat: no-repeat;
+  z-index: 2;
+
+  &[controlled-by="ai"] {
+    transform: rotate(180deg);
+    animation-name: ai-ship-flyby;
+    animation-timing-function: linear;
+    will-change: top;
+  }
+}
+
+@import 'ship/classes/cargo-hauler';
+@import 'ship/classes/civilian-transport';
+@import 'ship/classes/defender';
+@import 'ship/classes/escort';
+@import 'ship/classes/fighter';
+@import 'ship/classes/gunship';
+@import 'ship/classes/interceptor';
+@import 'ship/classes/miner';
+@import 'ship/classes/stealth';
+
+@keyframes ai-ship-flyby {
+  100% { top: 101%; }
+}

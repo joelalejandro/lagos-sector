@@ -1,0 +1,9 @@
+ship[class="gunship"] {
+  background-position: -132px -4px;
+  width: 53px;
+  height: $gunship-height;
+
+  &[controlled-by="ai"] {
+    top: -$gunship-height;
+  }
+}

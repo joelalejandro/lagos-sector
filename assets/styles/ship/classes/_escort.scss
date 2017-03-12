@@ -1,0 +1,9 @@
+ship[class="escort"] {
+  background-position: -71px -65px;
+  width: 51px;
+  height: $escort-height;
+
+  &[controlled-by="ai"] {
+    top: -$escort-height;
+  }
+}

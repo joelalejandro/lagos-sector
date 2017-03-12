@@ -1,0 +1,9 @@
+ship[class="civilian-transport"] {
+  background-position: -133px -69px;
+  width: 19px;
+  height: $civilian-transport-height;
+
+  &[controlled-by="ai"] {
+    top: -$civilian-transport-height;
+  }
+}

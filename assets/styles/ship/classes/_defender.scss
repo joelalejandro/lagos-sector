@@ -1,0 +1,9 @@
+ship[class="defender"] {
+  background-position: -131px -130px;
+  width: 55px;
+  height: $defender-height;
+
+  &[controlled-by="ai"] {
+    top: -$defender-height;
+  }
+}

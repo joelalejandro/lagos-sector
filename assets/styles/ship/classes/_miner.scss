@@ -1,0 +1,9 @@
+ship[class="miner"] {
+  background-position: -14px -128px;
+  width: 39px;
+  height: $miner-height;
+
+  &[controlled-by="ai"] {
+    top: -$miner-height;
+  }
+}

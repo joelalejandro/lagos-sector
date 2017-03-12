@@ -1,0 +1,9 @@
+ship[class="interceptor"] {
+  background-position: -6px -4px;
+  width: 56px;
+  height: $interceptor-height;
+
+  &[controlled-by="ai"] {
+    top: -$interceptor-height;
+  }
+}
