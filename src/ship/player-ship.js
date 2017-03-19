@@ -1,5 +1,6 @@
 import Ship from './ship';
 import EnergyCannon from '../weapons/energy-cannon';
+import Shield from '../shields/shield';
 
 export default class PlayerShip extends Ship {
   constructor(options) {
@@ -31,11 +32,20 @@ export default class PlayerShip extends Ship {
     // scene.addEventListener('mousemove', this.move.bind(this), false);
     this.dispatchMovementDetection();
     this.mountWeapon();
+    this.mountShields();
   }
 
   dispatchMovementDetection() {
     this.__meta__.previousPosition = this.getPosition();
     this.__meta__.movementDetectorID = window.requestAnimationFrame(this.detectMovements.bind(this));
+  }
+
+  get shields() {
+    return this.__meta__.shield;
+  }
+
+  set shields(_) {
+    throw new Error('PlayerShip#shields: shields must be set via mountShields');
   }
 
   mountWeapon() {
@@ -44,5 +54,19 @@ export default class PlayerShip extends Ship {
       owner: this,
       energy: 'plasma'
     });
+  }
+
+  mountShields() {
+    const shield = new Shield({
+      owner: this
+    });
+    this.__meta__.shield = shield;
+  }
+
+  onDamageReceived(source) {
+    super.onDamageReceived(source);
+    if (shield) {
+      this.__meta__.shield.use(source);
+    }
   }
 }
