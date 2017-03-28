@@ -1,11 +1,20 @@
 # Lagos Sector
 
-This is a proof-of-concept space shooter 2D game for testing several components of the [Xethya framework](https://github.com/xethya). It uses [Electron](https://github.com/electron/electron) too! :)
+This is a proof-of-concept space shooter 2D game for testing several components of the [Xethya framework](https://github.com/xethya). It uses [Electron](https://github.com/electron/electron) too, and has just ~600 SLoC so far (as of commit 328b34c).
+
+```
+┌───────────┬──────────┬────────┬─────────┬─────────────────────┬───────────────┬───────┬───────┬───────┐
+│ Extension │ Physical │ Source │ Comment │ Single-line comment │ Block comment │ Mixed │ Empty │ To Do │
+├───────────┼──────────┼────────┼─────────┼─────────────────────┼───────────────┼───────┼───────┼───────┤
+│ js        │ 740      │ 586    │ 10      │ 4                   │ 6             │ 0     │ 144   │ 1     │
+└───────────┴──────────┴────────┴─────────┴─────────────────────┴───────────────┴───────┴───────┴───────┘
+```
 
 ## Components used
 
 - **xethya-dice:** Used for random-related actions (damage levels, spawners, etc.)
 - **xethya-entity:** Every element on stage is either a `SkilledEntity` or a plain, basic `Entity`.
+- **xethya-native-extensions:** Used to apply a mixin pattern.
 
 ## Assets
 
