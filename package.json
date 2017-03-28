@@ -1,28 +1,23 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "Lagos Sector",
+  "version": "0.1.0",
+  "description": "A space shooter built with Electron & Xethya components.",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/joelalejandro/lagos-sector",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "game-2d", "xethya", "space-shooter", "space-game"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-prebuilt-compile": "^1.4.15",
-    "xethya-dice": "xethya/xethya-dice",
-    "xethya-entity": "xethya/xethya-entity",
-    "xethya-range": "xethya/xethya-range",
-    "xethya-combat": "xethya/xethya-combat",
-    "xethya-native-extensions": "xethya/xethya-native-extensions"
+    "xethya-dice": "github:xethya/xethya-dice",
+    "xethya-entity": "github:xethya/xethya-entity",
+    "xethya-native-extensions": "github:xethya/xethya-native-extensions",
+    "xethya-range": "github:xethya/xethya-range"
   }
 }
