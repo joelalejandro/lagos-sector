@@ -5,7 +5,7 @@ export default class ShieldGauge {
     document.body.appendChild(this.__element__);
 
     const playerShip = document.querySelector('ship[controlled-by="player"]');
-    playerShip.shields.on('strengthChanged', (ratio, gaugeLevel) => {
+    playerShip.controllerObject.shields.on('strengthChanged', (ratio, gaugeLevel) => {
       this.refreshUI(gaugeLevel);
     });
 

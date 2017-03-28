@@ -1,12 +1,17 @@
-import { Skill } from 'xethya-entity';
+import { Skill, StatableObject } from 'xethya-entity';
+import { PrototypeExtensions } from 'xethya-native-extensions';
 import * as DiceThrowType from 'xethya-dice';
+import { Range } from 'xethya-range';
 
-export default class Shield extends Skill {
+const ShieldMixins = [StatableObject];
+
+class Shield extends Skill {
   constructor(options) {
     super('shield', null, options.owner);
 
+    ShieldMixins.forEach(mixin => mixin.call(this));
+
     this.__meta__ = Object.assign({}, this.__meta__, {
-      id: 'shield',
       maximumStrength: options.maximumStrength,
       initialStrength: options.initialStrength,
       rechargeRate: options.rechargeRate,
@@ -17,15 +22,15 @@ export default class Shield extends Skill {
       return options.initialStrength - this.__meta__.strengthReduced;
     });
 
-    this.addAttribute('rechargeRate', options.rechargeRate, Range.fromArray([1, 50]));
-    this.addAttribute('rechargeSpeed', options.rechargeSpeed, Range.fromArray([1, 100]));
-    this.addAttribute('absorption', options.absorption, Range.fromArray([0.01, 0.5]));
+    this.addAttribute('rechargeRate', options.rechargeRate || 1, Range.fromArray([1, 50]));
+    this.addAttribute('rechargeSpeed', options.rechargeSpeed || 1, Range.fromArray([1, 100]));
+    this.addAttribute('absorption', options.absorption || 0.01, Range.fromArray([0.01, 0.5]));
 
     this.addModifier('recharging', 0);
-    this.getModifierById('recharging').active = false;
+    this.getModifierById('recharging').setActiveStatus(false);
 
     this.addStat('rechargeAmount', () => {
-      return options.maximumStrength * (1 / this.getAttributeById('rechargeRate'));
+      return options.maximumStrength * (1 / this.getAttributeById('rechargeRate').getValue());
     });
 
     this.renderTo(options.owner.__element__);
@@ -34,17 +39,17 @@ export default class Shield extends Skill {
   recharge() {
     const shieldStrength = this.getStatById('strength');
     const stopValue = this.__meta__.maximumStrength;
-    const mustRecharge = shieldStrength.value < stopValue;
+    const mustRecharge = shieldStrength.getValue() < stopValue;
     this.getModifierById('recharging').active = mustRecharge;
     if (mustRecharge) {
-      this.__meta__.strengthReduced -= this.getStatById('rechargeAmount').value;
+      this.__meta__.strengthReduced -= this.getStatById('rechargeAmount').getValue();
     }
     this.__meta__.rechargeTimeout = setTimeout(this.recharge.bind(this), 10000 * this.__meta__.rechargeSpeed);
   }
 
   onStatValueChanged(stat, previousValue) {
     if (stat.__meta__.id === 'strength') {
-      const percentile = (stat.value / this.__meta__.maximumStrength);
+      const percentile = (stat.getValue() / this.__meta__.maximumStrength);
       const ratio = percentile.toFixed(1);
       const gaugeLevel = ((1 - percentile) * 100).toFixed(0);
       this.__element__.setAttribute('ratio', ratio);
@@ -90,6 +95,10 @@ export default class Shield extends Skill {
 
         break;
     }
-    this.getModifierById('recharging').active = true;
+    this.getModifierById('recharging').setActiveStatus(true);
   }
 }
+
+ShieldMixins.forEach(mixin => PrototypeExtensions.injectExtensionClass(mixin, Shield));
+
+export default Shield;

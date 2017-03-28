@@ -4,8 +4,8 @@ import EnergyCannon from '../weapons/energy-cannon';
 import { CoinFlip } from 'xethya-dice';
 
 export default class AIShip extends Ship {
-  constructor(id, name) {
-    super('AI_SHIP_${id}', name);
+  constructor(options) {
+    super(options);
     this.__isAIShip__ = true;
   }
 
@@ -22,7 +22,7 @@ export default class AIShip extends Ship {
     });
 
     this.__element__.addEventListener('animationend', () => {
-      scene.removeChild(this.__element__);
+      this.__element__.remove();
       this.emit('aiShipGone');
     });
 

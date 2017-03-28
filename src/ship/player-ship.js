@@ -9,7 +9,7 @@ export default class PlayerShip extends Ship {
       name: options.name,
       shipClass: options.shipClass
     });
-    this.__isPlayerShip__ = true;
+    Object.defineProperty(this, '__isPlayerShip__', { get: () => true });
   }
 
   detectMovements() {

@@ -1,11 +1,17 @@
-import { Entity } from 'xethya-entity';
+import { Entity, OwnedObject } from 'xethya-entity';
+import { PrototypeExtensions } from 'xethya-native-extensions';
+
+const WeaponBurstMixins = [OwnedObject];
 
 const WeaponBurstSpeedSettings = [600, 700, 850, 1000];
 
-export default class WeaponBurst extends Entity {
+class WeaponBurst extends Entity {
   constructor(owner) {
     super('shot', null);
-    this.__meta__.owner = owner;
+
+    WeaponBurstMixins.forEach(mixin => mixin.call(this));
+
+    this.setOwner(owner);
     this.renderTo(owner.__element__);
   }
 
@@ -51,12 +57,12 @@ export default class WeaponBurst extends Entity {
     const dom = owner.ownerDocument;
     const shot = dom.createElement('shot');
     const scene = dom.querySelector('scene');
-    const owningWeapon = this.__meta__.owner;
+    const owningWeapon = this.getOwner();
     const owningWeaponPower = owningWeapon.getAttributeById('power');
-    const owningShip = owningWeapon.owner;
+    const owningShip = owningWeapon.getOwner();
     const owningShipPosition = owningShip.getPosition();
     const owningShipSize = owningShip.shipSize;
-    const shotSpeed = WeaponBurstSpeedSettings[owningWeaponPower.value - 1];
+    const shotSpeed = WeaponBurstSpeedSettings[owningWeaponPower.getValue() - 1];
 
     this.__meta__.owningShip = owningShip;
 
@@ -64,11 +70,11 @@ export default class WeaponBurst extends Entity {
     shot.style.left = `${owningShipPosition.x}px`;
     shot.style.top = `${owningShipPosition.y}px`;
 
-    shot.setAttribute('weapon', owningWeapon.id);
-    shot.setAttribute('power-level', owningWeaponPower.value);
+    shot.setAttribute('weapon', owningWeapon.getId());
+    shot.setAttribute('power-level', owningWeaponPower.getValue());
     shot.setAttribute('speed', shotSpeed);
     shot.setAttribute('fired-by', owningShip.__isPlayerShip__ ? 'player' : 'ai');
-    shot.setAttribute('energy', owningWeapon.__meta__.energyType);
+    shot.setAttribute('energy', owningWeapon.getEnergyType());
     shot.controllerObject = this;
 
     shot.style.animationDuration = `${shotSpeed / 1000}s`;
@@ -109,3 +115,7 @@ export default class WeaponBurst extends Entity {
     });
   }
 }
+
+WeaponBurstMixins.forEach(mixin => PrototypeExtensions.injectExtensionClass(mixin, WeaponBurst));
+
+export default WeaponBurst;

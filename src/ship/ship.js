@@ -19,18 +19,6 @@ export default class Ship extends LivingEntity {
     };
   }
 
-  get shipClass() {
-    return this.__meta__.shipClass;
-  }
-
-  set shipClass(className) {
-    this.__meta__.shipClass = className;
-
-    if (this.__element__) {
-      this.refreshShipSizeCache();
-    }
-  }
-
   getPosition() {
     const rect = this.__element__.getBoundingClientRect();
     return {
@@ -59,7 +47,7 @@ export default class Ship extends LivingEntity {
     const dom = scene.__element__.ownerDocument;
     const ship = dom.createElement('ship');
 
-    ship.classList.add(this.race.name);
+    ship.classList.add(this.getRace().getName());
     ship.appendChild(dom.createElement('weapons'));
     ship.controllerObject = this;
 
