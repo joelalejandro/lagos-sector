@@ -7,6 +7,10 @@ export default class Score {
     this.refreshScoreUI();
   }
 
+  getScore() {
+    return this.__meta__.score;
+  }
+
   increaseBy(points) {
     this.__meta__.score += points;
     this.refreshScoreUI();
