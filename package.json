@@ -1,5 +1,5 @@
 {
-  "name": "Lagos Sector",
+  "name": "lagos-sector",
   "version": "0.1.0",
   "description": "A space shooter built with Electron & Xethya components.",
   "main": "main.js",
@@ -8,7 +8,10 @@
   },
   "repository": "https://github.com/joelalejandro/lagos-sector",
   "keywords": [
-    "game-2d", "xethya", "space-shooter", "space-game"
+    "game-2d",
+    "xethya",
+    "space-shooter",
+    "space-game"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
