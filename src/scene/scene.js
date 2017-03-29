@@ -3,7 +3,11 @@ export default class Scene {
     this.__meta__ = options;
     this.__meta__.pointer = {};
     this.renderTo(window.document.body);
-    this.bindCapturePointerEvent();
+  }
+
+  destroy() {
+    this.__element__.remove();
+    this.__meta__.isDestroyed = true;
   }
 
   renderTo(target) {
