@@ -6,64 +6,35 @@
     <link rel="stylesheet" href="assets/styles/game.scss">
   </head>
   <body draggable="false">
+    <splash-screen>
+      <logo>
+      __                              _____           __
+     / /   ____ _____ _____  _____   / ___/___  _____/ /_____  _____
+    / /   / __ `/ __ `/ __ \/ ___/   \__ \/ _ \/ ___/ __/ __ \/ ___/
+   / /___/ /_/ / /_/ / /_/ (__  )   ___/ /  __/ /__/ /_/ /_/ / /
+  /_____/\__,_/\__, /\____/____/   /____/\___/\___/\__/\____/_/
+              /____/
+      </logo>
+      <button class="start-game">Play</button>
+      <authorship>
+      An open source game built with <a href="https://github.com/xethya" target="_blank">Xethya</a> - Check out the code at <a href="https://github.com/joelalejandro/lagos-sector" target="_blank">github.com/joelalejandro/lagos-sector</a><br>
+      Sprites by wuhu, Bonsaiheldin, Rawdanitsu - Sounds by dklon, Kenney - Music by maxstack - Typeface by Peter Weigel
+      </authorship>
+    </splash-screen>
+    <game-over>
+      <logo>
+   _________    __  _________   ____ _    ____________
+  / ____/   |  /  |/  / ____/  / __ \ |  / / ____/ __ \
+ / / __/ /| | / /|_/ / __/    / / / / | / / __/ / /_/ /
+/ /_/ / ___ |/ /  / / /___   / /_/ /| |/ / /___/ _, _/
+\____/_/  |_/_/  /_/_____/   \____/ |___/_____/_/ |_|
+      </logo>
+      <button class="start-game">Again!</button>
+<authorship>
+      An open source game built with <a href="https://github.com/xethya" target="_blank">Xethya</a>  - Check out the source code at <a href="https://github.com/joelalejandro/lagos-sector" target="_blank">github.com/joelalejandro/lagos-sector</a><br>
+      Sprites by wuhu, Bonsaiheldin, Rawdanitsu - Sounds by dklon, Kenney - Music by maxstack - Typeface by Peter Weigel
+      </authorship>
+    </game-over>
   </body>
-
-  <script>
-    import Scene from './src/scene/scene';
-    import AudioEmitter from './src/scene/audio-emitter';
-    import PlayerShip from './src/ship/player-ship';
-    import AIShip from './src/ship/ai-ship';
-    import Score from './src/ui/score';
-    import ShieldGauge from './src/ui/shield-gauge';
-
-    import { DiceThrow } from 'xethya-dice';
-
-    const scene = new Scene({
-      background: 'stars'
-    });
-
-    // Registering all sounds
-    const audioEmitter = new AudioEmitter();
-    audioEmitter.registerSound({ name: 'background-music', src: 'through-space.ogg', volume: 0.4 });
-    audioEmitter.registerSound({ name: 'energy-cannon', src: 'laser4.mp3' });
-    audioEmitter.registerSound({ name: 'explosion--small', src: 'boom3.wav', volume: 0.2 });
-
-    audioEmitter.emit('background-music');
-
-    // Rendering the player's ship
-    const ship = new PlayerShip({ name: 'The Lagos', shipClass: 'interceptor' });
-    ship.renderTo(scene);
-
-    // Score controller
-    const score = new Score();
-
-    // Shield gauge
-    const shieldGauge = new ShieldGauge();
-
-    // Spawing fighters
-    let fighterCount = 0;
-
-    const diceThrow = new DiceThrow(5, scene.__element__.getBoundingClientRect().width);
-
-    const spawner = () => {
-      if (fighterCount < 5) {
-        const ship = new AIShip({
-          name: `enemy${fighterCount + 1}`,
-          shipClass: 'fighter'
-        });
-        ship.startingXPos = diceThrow.roll().rolls[fighterCount];
-        ship.startingYPos = -diceThrow.roll().rolls[0];
-        ship.renderTo(scene);
-        fighterCount += 1;
-        ship.on('aiShipGone', () => { fighterCount--; })
-      }
-      callSpawner();
-    };
-
-    const callSpawner = () => {
-      window.requestAnimationFrame(spawner);
-    }
-
-    // callSpawner();
-  </script>
+  <script src="renderer.js"></script>
 </html>
