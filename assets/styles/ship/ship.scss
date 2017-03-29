@@ -10,6 +10,10 @@ ship {
     animation-timing-function: linear;
     will-change: top;
   }
+
+  &[controlled-by="player"] {
+    transform: translateX(400px) translateY(200px);
+  }
 }
 
 @import 'ship/classes/cargo-hauler';
