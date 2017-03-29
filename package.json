@@ -4,7 +4,8 @@
   "description": "A space shooter built with Electron & Xethya components.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "game": "electron .",
+    "code-metrics": "sloc assets src index.html main.js renderer.js -f cli-table"
   },
   "repository": "https://github.com/joelalejandro/lagos-sector",
   "keywords": [
@@ -18,6 +19,7 @@
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-prebuilt-compile": "^1.4.15",
+    "sloc": "^0.2.0",
     "xethya-dice": "github:xethya/xethya-dice",
     "xethya-entity": "github:xethya/xethya-entity",
     "xethya-native-extensions": "github:xethya/xethya-native-extensions",

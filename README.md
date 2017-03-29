@@ -1,13 +1,32 @@
 # Lagos Sector
 
-This is a proof-of-concept space shooter 2D game for testing several components of the [Xethya framework](https://github.com/xethya). It uses [Electron](https://github.com/electron/electron) too, and has just ~600 SLoC so far (as of commit 328b34c).
+This is a proof-of-concept space shooter 2D game for testing several components of the [Xethya framework](https://github.com/xethya). It uses [Electron](https://github.com/electron/electron) too, and has just ~700 JavaScript SLoC so far (as of commit `7963874`).
 
 ```
 ┌───────────┬──────────┬────────┬─────────┬─────────────────────┬───────────────┬───────┬───────┬───────┐
 │ Extension │ Physical │ Source │ Comment │ Single-line comment │ Block comment │ Mixed │ Empty │ To Do │
 ├───────────┼──────────┼────────┼─────────┼─────────────────────┼───────────────┼───────┼───────┼───────┤
-│ js        │ 740      │ 586    │ 10      │ 4                   │ 6             │ 0     │ 144   │ 1     │
+│ - Total - │ 1719     │ 1413   │ 57      │ 42                  │ 15            │ 2     │ 251   │ 1     │
+├───────────┼──────────┼────────┼─────────┼─────────────────────┼───────────────┼───────┼───────┼───────┤
+│ scss      │ 782      │ 694    │ 8       │ 6                   │ 2             │ 2     │ 82    │ 0     │
+├───────────┼──────────┼────────┼─────────┼─────────────────────┼───────────────┼───────┼───────┼───────┤
+│ js        │ 897      │ 679    │ 49      │ 36                  │ 13            │ 0     │ 169   │ 1     │
+├───────────┼──────────┼────────┼─────────┼─────────────────────┼───────────────┼───────┼───────┼───────┤
+│ html      │ 40       │ 40     │ 0       │ 0                   │ 0             │ 0     │ 0     │ 0     │
 └───────────┴──────────┴────────┴─────────┴─────────────────────┴───────────────┴───────┴───────┴───────┘
+```
+
+Check out current stats by running `npm run code-metrics`.
+
+## How to play
+
+Until binaries are released:
+
+```bash
+git clone https://github.com/joelalejandro/lagos-sector
+cd lagos-sector
+npm install
+npm run game
 ```
 
 ## Components used
