@@ -12,8 +12,9 @@ const url = require('url')
 let mainWindow
 
 function createWindow () {
+  const {width, height} = electron.screen.getPrimaryDisplay().workAreaSize
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width, height, frame: false})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -22,12 +23,10 @@ function createWindow () {
     slashes: true
   }))
 
-  mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.webContents.send('xethya-init');
-  });
+  // mainWindow.setFullScreen(true);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
