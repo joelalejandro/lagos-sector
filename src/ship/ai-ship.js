@@ -38,7 +38,7 @@ export default class AIShip extends Ship {
   decideFiring() {
     const result = this.__decider__.roll();
     if (result === 1) {
-      this.__meta__.weapon.fire();
+      this.__meta__.weapon.use();
     }
   }
 
