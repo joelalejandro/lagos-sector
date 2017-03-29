@@ -1,5 +1,8 @@
 shield-gauge {
   position: fixed;
+  left: 10px;
+  top: 10px;
+  z-index: 10;
   border: $shield-gauge-border;
   box-shadow: $shield-gauge-box-shadow;
   width: $shield-gauge-width;
