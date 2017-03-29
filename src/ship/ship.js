@@ -80,5 +80,32 @@ export default class Ship extends LivingEntity {
   onDamageReceived(source) {
     const dom = this.__element__.ownerDocument;
     dom.querySelector('audio-emitter').controllerObject.emit('explosion--small');
+
+    if (this.shields) {
+      const shieldLevel = this.shields.use(source);
+      if (shieldLevel <= 0) {
+        this.explode(this.__element__.getBoundingClientRect());
+      }
+    } else {
+      this.explode(this.__element__.getBoundingClientRect());
+    }
+  }
+
+  explode(position) {
+    const dom = this.__element__.ownerDocument;
+    const scene = dom.querySelector('scene');
+
+    const explosion = dom.createElement('explosion');
+    explosion.setAttribute('strength', 1);
+    explosion.style.left = `${position.left}px`;
+    explosion.style.top = `${position.top}px`;
+
+    explosion.addEventListener('animationend', () => {
+      explosion.remove();
+      this.emit('destroyed');
+    });
+
+    scene.appendChild(explosion);
+    this.__element__.remove();
   }
 }
