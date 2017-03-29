@@ -15,4 +15,8 @@ export default class ShieldGauge {
   refreshUI(gaugeLevel) {
     this.__element__.setAttribute('damage', gaugeLevel);
   }
+
+  destroy() {
+    this.__element__.remove();
+  }
 }
