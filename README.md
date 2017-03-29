@@ -29,6 +29,10 @@ npm install
 npm run game
 ```
 
+## Screenshots
+![Screenshot 1](http://i.imgur.com/NWlq35q.png)
+![Screenshot 2](http://i.imgur.com/MoT5oas.png)
+
 ## Components used
 
 - **xethya-dice:** Used for random-related actions (damage levels, spawners, etc.)
