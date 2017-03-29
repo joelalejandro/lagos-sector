@@ -19,7 +19,7 @@ export default class PlayerShip extends Ship {
       super.move(pointer.relative, scene);
     }
     // FIXME: This breaks movement once focus is lost.
-    if (scene.canPointerMove) {
+    if (scene.canPointerMove && !scene.__meta__.isDestroyed) {
       this.dispatchMovementDetection();
     }
   }
@@ -50,7 +50,7 @@ export default class PlayerShip extends Ship {
 
   mountWeapon() {
     this.__meta__.weapon = new EnergyCannon({
-      power: 3,
+      power: 1,
       owner: this,
       energy: 'plasma'
     });
@@ -58,15 +58,15 @@ export default class PlayerShip extends Ship {
 
   mountShields() {
     const shield = new Shield({
-      owner: this
+      owner: this,
+      initialStrength: 250,
+      maximumStrength: 250,
+      absorption: 0.01,
     });
     this.__meta__.shield = shield;
   }
 
   onDamageReceived(source) {
     super.onDamageReceived(source);
-    if (shield) {
-      this.__meta__.shield.use(source);
-    }
   }
 }
