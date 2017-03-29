@@ -22,12 +22,14 @@ class Shield extends Skill {
       return options.initialStrength - this.__meta__.strengthReduced;
     });
 
+    // this.getStatById('strength').on('change', this.calculateShieldRatio.bind(this));
+
     this.addAttribute('rechargeRate', options.rechargeRate || 1, Range.fromArray([1, 50]));
-    this.addAttribute('rechargeSpeed', options.rechargeSpeed || 1, Range.fromArray([1, 100]));
+    this.addAttribute('rechargeSpeed', options.rechargeSpeed || 1, Range.fromArray([1, 5000]));
     this.addAttribute('absorption', options.absorption || 0.01, Range.fromArray([0.01, 0.5]));
 
     this.addModifier('recharging', 0);
-    this.getModifierById('recharging').setActiveStatus(false);
+    this.deactivateModifier('recharging');
 
     this.addStat('rechargeAmount', () => {
       return options.maximumStrength * (1 / this.getAttributeById('rechargeRate').getValue());
@@ -39,32 +41,39 @@ class Shield extends Skill {
   recharge() {
     const shieldStrength = this.getStatById('strength');
     const stopValue = this.__meta__.maximumStrength;
+    const before = shieldStrength.getValue();
     const mustRecharge = shieldStrength.getValue() < stopValue;
-    this.getModifierById('recharging').active = mustRecharge;
-    if (mustRecharge) {
+    /* if (mustRecharge) {
+      console.log(this.__meta__.strengthReduced, this.getStatById('rechargeAmount').getValue());
       this.__meta__.strengthReduced -= this.getStatById('rechargeAmount').getValue();
+    } else {
+      this.deactivateModifier('recharging');
     }
-    this.__meta__.rechargeTimeout = setTimeout(this.recharge.bind(this), 10000 * this.__meta__.rechargeSpeed);
+    this.__meta__.rechargeTimeout = setTimeout(this.recharge.bind(this), 10000 * this.__meta__.rechargeSpeed); */
   }
 
-  onStatValueChanged(stat, previousValue) {
-    if (stat.__meta__.id === 'strength') {
-      const percentile = (stat.getValue() / this.__meta__.maximumStrength);
-      const ratio = percentile.toFixed(1);
-      const gaugeLevel = ((1 - percentile) * 100).toFixed(0);
-      this.__element__.setAttribute('ratio', ratio);
-      this.emit('strengthChanged', ratio, gaugeLevel);
-    }
+  calculateShieldRatio() {
+    const stat = this.getStatById('strength');
+    const percentile = (stat.getValue() / this.__meta__.maximumStrength);
+    const ratio = percentile.toFixed(1);
+    const gaugeLevel = Math.min(((1 - percentile) * 100).toFixed(0), 100);
+    console.log(percentile, ratio, gaugeLevel);
+    this.__element__.setAttribute('ratio', ratio);
+    this.emit('strengthChanged', ratio, gaugeLevel);
+    console.log('strength changed');
+    return percentile;
   }
 
   onModifierActivated(modifier) {
-    if (modifier.id === 'recharging') {
+    if (modifier.getId() === 'recharging') {
+      console.log('modifier activated: recharge');
       this.recharge();
     }
   }
 
   onModifierDeactivated(modifier) {
-    if (modifier.id === 'recharging') {
+    if (modifier.getId() === 'recharging') {
+      console.log('modifier deactivated: recharge');
       clearTimeout(this.__meta__.rechargeTimeout);
     }
   }
@@ -84,18 +93,11 @@ class Shield extends Skill {
 
   use(sourceDamage) {
     const shieldRoll = super.use();
-    switch (shieldRoll.throwType) {
-      case DiceThrowType.Failure:
+    const damage = shieldRoll.getTotalRollValue() * (1 - this.getAttributeById('absorption').getValue());
+    this.__meta__.strengthReduced += damage;
 
-        break;
-      case DiceThrowType.Success:
-
-        break;
-      case DiceThrowType.CriticalSuccess:
-
-        break;
-    }
-    this.getModifierById('recharging').setActiveStatus(true);
+    //this.activateModifier('recharging');
+    return this.calculateShieldRatio();
   }
 }
 
