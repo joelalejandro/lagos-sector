@@ -3,7 +3,19 @@
 @import 'scene/_scene';
 @import 'scene/_stars';
 @import 'scene/_explosion';
-@import 'ui/ui';
+@import 'ui/_logo';
+@import 'ui/_score';
+@import 'ui/_shield-gauge';
+@import 'ui/_start-game';
+@import 'ui/_splash-screen';
+@import 'ui/_authorship';
+@import 'ui/_game-over';
 @import 'ship/ship';
 @import 'weapons/_energy-cannon';
 @import 'shields/shield';
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
