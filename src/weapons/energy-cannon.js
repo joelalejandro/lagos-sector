@@ -34,7 +34,10 @@ export default class EnergyCannon extends Skill {
 
   bindEvents(element) {
     if (this.getOwner().__isPlayerShip__) {
-      element.ownerDocument.addEventListener('mousedown', this.use.bind(this), false);
+      element.ownerDocument.querySelector('scene').addEventListener('mousedown', this.use.bind(this), false);
+      this.getOwner().on('destroyed', () => {
+        element.ownerDocument.querySelector('scene').removeEventListener('mousedown', this.use.bind(this), false);
+      });
     } else {
       this.updateFiringCondition();
     }
@@ -61,7 +64,17 @@ export default class EnergyCannon extends Skill {
         shot.once('weaponBurstExploded', (data) => {
           if (data.target.controllerObject.__isAIShip__) {
             const dom = this.__element__.ownerDocument;
-            dom.querySelector('score').controllerObject.increaseBy(weaponFiredState.rolls[0]);
+            const score = dom.querySelector('score').controllerObject;
+            score.increaseBy(weaponFiredState.rolls[0]);
+            const points = score.getScore();
+            if (Range.fromArray([0, 100]).includes(points)) {
+              this.setAttribute('power', 2);
+            } else if (Range.fromArray([101, 500]).includes(points)) {
+              this.setAttribute('power', 3);
+            } else if (points > 500) {
+              this.setAttribute('power', 4);
+            }
+            this.__element__.setAttribute('power-level', this.getAttributeById('power').getValue());
           }
         });
       }
