@@ -10,9 +10,22 @@
 @import 'ui/_splash-screen';
 @import 'ui/_authorship';
 @import 'ui/_game-over';
-@import 'ship/ship';
+@import 'ship/_ship';
+@import 'ship/classes/_cargo-hauler';
+@import 'ship/classes/_civilian-transport';
+@import 'ship/classes/_defender';
+@import 'ship/classes/_escort';
+@import 'ship/classes/_fighter';
+@import 'ship/classes/_gunship';
+@import 'ship/classes/_interceptor';
+@import 'ship/classes/_miner';
+@import 'ship/classes/_stealth';
 @import 'weapons/_energy-cannon';
-@import 'shields/shield';
+@import 'shields/_shield';
+@import 'shields/compositions/_rounded-composition';
+@import 'shields/ratios/_lower-ratio';
+@import 'shields/ratios/_middle-ratio';
+@import 'shields/ratios/_upper-ratio';
 
 body {
   margin: 0;
