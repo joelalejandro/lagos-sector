@@ -2,6 +2,8 @@
 
 This is a proof-of-concept space shooter 2D game for testing several components of the [Xethya framework](https://github.com/xethya). It uses [Electron](https://github.com/electron/electron) too, and has just ~700 JavaScript SLoC so far (as of commit `7963874`).
 
+As development advances with Xethya, this game will get updates.
+
 ```
 ┌───────────┬──────────┬────────┬─────────┬─────────────────────┬───────────────┬───────┬───────┬───────┐
 │ Extension │ Physical │ Source │ Comment │ Single-line comment │ Block comment │ Mixed │ Empty │ To Do │
@@ -28,6 +30,10 @@ cd lagos-sector
 npm install
 npm run game
 ```
+
+## Screenshots
+![Screenshot 1](http://i.imgur.com/NWlq35q.png)
+![Screenshot 2](http://i.imgur.com/MoT5oas.png)
 
 ## Components used
 
